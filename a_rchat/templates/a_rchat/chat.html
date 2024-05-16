@@ -17,9 +17,9 @@
             <div class="flex items-center rounded-xl px-2 py-2">
                 <form id="chat_message_form" class="w-full" 
                     hx-ext="ws"
-                    ws-connect="/ws/chatroom/public-chat"
+                    ws-connect="/ws/chatroom/public"
                     ws-send
-                    _="on htmx:afterRequest rest() me">
+                    _="on htmx:wsAfterSend rest() me">
                     {% csrf_token %}
                     {{ form }}
                 </form>
@@ -28,5 +28,39 @@
             </div>
         </div>
     </div>
+    
 </wrapper>
 {% endblock  %}
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const chatroomName = "public-chat";
+    const chatSocket = new WebSocket(
+        'ws://' + window.location.host + '/ws/chatroom/' + chatroomName + '/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        console.log(data);
+        const messages = document.getElementById('chat_messages');
+        const messageElement = document.createElement('div');
+        messageElement.textContent = data.author + ': ' + data.message;
+        messages.appendChild(messageElement);
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.getElementById('chat_message_form').onsubmit = function(e) {
+        e.preventDefault();
+        const messageInputDom = document.getElementById('id_body');
+        const message = messageInputDom.value;
+        chatSocket.send(JSON.stringify({
+            'body': message
+        }));
+        messageInputDom.value = '';
+    };
+});
+</script>
+{% endblock %}
