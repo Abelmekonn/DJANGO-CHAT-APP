@@ -6,7 +6,7 @@ from .models import ChatGroup
 @login_required
 def chat_view(request):
     chat_group = get_object_or_404(ChatGroup, group_name='public')
-    chat_messages = chat_group.chat_message.all()[:30:-1]  
+    chat_messages = chat_group.chat_message.all()[:30]  
 
     if request.htmx:
         form = ChatMessageCreateForm(request.POST)  # Pass POST data to form
