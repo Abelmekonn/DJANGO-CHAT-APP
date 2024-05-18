@@ -14,7 +14,10 @@ def chat_view(request, chatroom_name='public'):
     if chat_group.is_private:
         if request.user not in chat_group.members.all():
             raise Http404()
-        
+        for member in chat_group.members.all():
+            if member != request.user:
+                other_user=member
+                break
     
     if request.htmx:
         form = ChatMessageCreateForm(request.POST)  # Pass POST data to form
@@ -31,7 +34,14 @@ def chat_view(request, chatroom_name='public'):
     else:
         form = ChatMessageCreateForm() 
     
-    return render(request, 'a_rchat/chat.html', {'chat_messages': chat_messages, 'form': form})
+    context={
+        'chat_messages': chat_messages, 
+        'form': form,
+        'other_user':other_user,
+        'chatroom_name':chatroom_name
+    }
+    
+    return render(request, 'a_rchat/chat.html', context)
 
 def get_or_create_chatroom(request,username):
     if request.user.username ==username:
