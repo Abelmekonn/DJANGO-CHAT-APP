@@ -23,6 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-li*c9%zx(dcrr1*%=h&c6_=jkwhgj)5iq-ejjtesu&$%pfc@&k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -85,6 +86,15 @@ CHANNEL_LAYERS={
         'BACKEND':"channels.layers.InMemoryChannelLayer",
     }
 }
+
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [('redis://default:OepaeqZAoHRNOkHeOUPmnSYoLpoZEikb@roundhouse.proxy.rlwy.net:46802')]
+#         },
+#     },
+# }
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
