@@ -62,15 +62,17 @@ class ChatroomConsumer(WebsocketConsumer):
         self.send(text_data=html)
     
     def update_online_count(self):
-        online_count=self.chatroom.users_online.count() -1
+        online_count = self.chatroom.users_online.count() - 1
         
-        event={
-            'type':'online_count_handler',
-            'online':online_count
+        event = {
+            'type': 'online_count_handler',
+            'online_count': online_count
         }
+        logger.debug(f"Sending event: {event}")
         async_to_sync(self.channel_layer.group_send)(self.chatroom_name, event)
-    
-    def online_count_handler(self,event):
-        online_count=event['online_count']
-        html=render_to_string("a_rchat/partials/online_count.html",{'online_count':online_count})
+
+    def online_count_handler(self, event):
+        logger.debug(f"Received event: {event}")
+        online_count = event['online_count']
+        html = render_to_string("a_rchat/partials/online_count.html", {'online_count': online_count})
         self.send(text_data=html)
