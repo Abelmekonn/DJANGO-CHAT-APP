@@ -4,6 +4,9 @@ from django.template.loader import render_to_string
 from asgiref.sync import async_to_sync
 from .models import *
 import json
+import logging
+logger = logging.getLogger(__name__)
+
 
 class ChatroomConsumer(WebsocketConsumer):
     def connect(self):
