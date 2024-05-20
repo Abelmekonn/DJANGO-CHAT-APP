@@ -20,11 +20,11 @@
                     x-transition:enter-end="opacity-100 translate-y-0 scale-100">
                     <ul class="hoverlist [&>li>a]:justify-end">
                         <li><a href="{% url "home" %}">Public</a></li>
-                        {% for chatroom in chat_groups %}
+                        {% for chatroom in user.chat_groups.all %}
                             {% if chatroom.is_private %}
                                 {% for member in chatroom.members.all %}
-                                    {% if member != request.user %}
-                                        <li><a href="{% url 'chatroom' chatroom.group_name %}">{{ member.name }}</a></li>
+                                    {% if member != user %}
+                                        <li><a href="{% url 'chatroom' chatroom.group_name %}">{{ member.profile.name }}</a></li>
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
