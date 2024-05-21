@@ -18,6 +18,12 @@
                 </div>
             </a>
             {% elif chat_group.groupchat_name %}
+            <ul>
+                {% for member in chat_group.members.all %}
+                <li>
+                    
+                </li>
+            </ul>
             {% else %}
             {% include "a_rchat/partials/online_count.html" %} online
             {% endif %}
