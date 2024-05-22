@@ -20,6 +20,7 @@
                     x-transition:enter-end="opacity-100 translate-y-0 scale-100">
                     <ul class="hoverlist [&>li>a]:justify-end">
                         <li><a href="{% url "home" %}">Public</a></li>
+                        
                         {% for chatroom in user.chat_groups.all %}
                             {% if chatroom.is_private %}
                                 {% for member in chatroom.members.all %}
