@@ -21,8 +21,12 @@
             <ul>
                 {% for member in chat_group.members.all %}
                 <li>
-                    
+                    <a href="{% url 'profile' member.username %}">
+                        <img src="{{ member.profile.avatar }}" class="flex flex-col text-gray-400 items-center justify-center w-20 gap-2">
+                        {{ member.profile.name }}
+                    </a>
                 </li>
+                {% endfor %}
             </ul>
             {% else %}
             {% include "a_rchat/partials/online_count.html" %} online
