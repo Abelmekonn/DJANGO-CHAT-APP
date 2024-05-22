@@ -18,11 +18,11 @@
                 </div>
             </a>
             {% elif chat_group.groupchat_name %}
-            <ul>
+            <ul id="groupchat-member" class="flex gap-4">
                 {% for member in chat_group.members.all %}
                 <li>
-                    <a href="{% url 'profile' member.username %}">
-                        <img src="{{ member.profile.avatar }}" class="flex flex-col text-gray-400 items-center justify-center w-20 gap-2">
+                    <a href="{% url 'profile' member.username %}" class="flex flex-col text-gray-400 items-center justify-center w-20 gap-2">
+                        <img src="{{ member.profile.avatar }}" class="">
                         {{ member.profile.name|slice:":10" }}
                     </a>
                 </li>
