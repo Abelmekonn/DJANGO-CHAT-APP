@@ -23,7 +23,7 @@
                 <li>
                     <a href="{% url 'profile' member.username %}">
                         <img src="{{ member.profile.avatar }}" class="flex flex-col text-gray-400 items-center justify-center w-20 gap-2">
-                        {{ member.profile.name }}
+                        {{ member.profile.name|slice:":10" }}
                     </a>
                 </li>
                 {% endfor %}

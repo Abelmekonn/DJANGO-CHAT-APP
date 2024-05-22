@@ -19,6 +19,10 @@ def chat_view(request, chatroom_name='public'):
                 other_user=member
                 break
     
+    if chat_group.groupchat_name:
+        if request.user not in chat_group.members.all():
+            chat_group.members.add(request.user)
+    
     if request.htmx:
         form = ChatMessageCreateForm(request.POST)  # Pass POST data to form
         if form.is_valid():  # Check if form data is valid
