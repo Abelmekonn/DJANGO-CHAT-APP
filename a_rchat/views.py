@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import Http404
-from .forms import ChatMessageCreateForm,NewGroupForm
+from .forms import ChatMessageCreateForm,NewGroupForm,ChatRoomEditForm
 from .models import ChatGroup
 from django.contrib.auth.models import User
 
@@ -44,7 +44,7 @@ def chat_view(request, chatroom_name='public'):
         form = ChatMessageCreateForm() 
     
     context={
-        'chat_messages': chat_messages, 
+        'chat_messages': chat_messages,
         'form': form,
         'other_user':other_user,
         'chatroom_name':chatroom_name,
@@ -94,5 +94,27 @@ def create_groupchat(request):
     return render(request, 'a_rchat/create_groupchat.html',context)
 
 @login_required
-def chatroom_edit_view(request,chatroom_name):
-    return render(request,'a_rchat/chatroom_edit.html')
+def chatroom_edit_view(request, chatroom_name):
+    chat_group = get_object_or_404(ChatGroup, group_name=chatroom_name)
+    if request.user != chat_group.admin:
+        raise Http404()
+    
+    form = ChatRoomEditForm(instance=chat_group) 
+    
+    if request.method == 'POST':
+        form = ChatRoomEditForm(request.POST, instance=chat_group)
+        if form.is_valid():
+            form.save()
+            
+            remove_members = request.POST.getlist('remove_members')
+            for member_id in remove_members:
+                member = User.objects.get(id=member_id)
+                chat_group.members.remove(member)  
+                
+            return redirect('chatroom', chatroom_name) 
+    
+    context = {
+        'form' : form,
+        'chat_group' : chat_group
+    }   
+    return render(request, 'a_rtchat/chatroom_edit.html', context) 
