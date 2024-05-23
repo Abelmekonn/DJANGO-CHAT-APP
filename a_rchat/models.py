@@ -18,6 +18,7 @@ class GroupMessage(models.Model):
     group=models.ForeignKey(ChatGroup, related_name='chat_message', on_delete=models.CASCADE)
     author=models.ForeignKey(User,on_delete=models.CASCADE)
     body=models.CharField(max_length=300)
+    file=models.FileField(upload_to='files/',blank=True,null=True) 
     created=models.DateField(auto_now_add=True)
     
     def __str__(self):

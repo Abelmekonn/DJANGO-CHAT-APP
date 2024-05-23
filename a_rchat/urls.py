@@ -8,4 +8,5 @@ urlpatterns = [
     path('chat/new_groupchat/',create_groupchat, name="new-groupchat"),
     path('chat/edit/<chatroom_name>',chatroom_edit_view,name="edit-chatroom"),
     path('chat/delete/<chatroom_name>', chatroom_delete_view, name="chatroom-delete"),
+    path('xhat/fileupload/<chatroom_name>', chat_file_upload, name="chat-file-upload"),
 ]
