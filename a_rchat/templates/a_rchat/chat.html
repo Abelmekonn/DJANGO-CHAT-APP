@@ -3,7 +3,12 @@
 {% block content %}
 <wrapper class="block max-w-2xl mx-auto my-10 px-6">
     {% if chat_group.groupchat_name %}
-    <h2>{{ chat_group.groupchat_name }}</h2>
+    <div class="flex justify-between">
+        <h2>{{ chat_group.groupchat_name }}</h2>
+        {% if user == chat_group.admin %}
+            <a href="{% url 'edit-chatroom' chatgroup_name %}">Edit</a>
+        {% endif %}
+    </div>
     {% endif %}
     <div id="chat_window" class="h-[45rem] flex flex-col bg-gray-800 rounded-2xl shadow-2xl relative p-1">
         <div class="flex justify-center text-emerald-400 bg-gray-800 p-2 sticky top-0 z-10">
