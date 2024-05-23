@@ -145,7 +145,7 @@ def chatroom_leave_view(request, chatroom_name):
         messages.success(request, 'You left the Chat')
         return redirect('home')
     
-    
+
 # def chat_file_upload(request, chatroom_name):
 #     chat_group = get_object_or_404(ChatGroup, group_name=chatroom_name)
     

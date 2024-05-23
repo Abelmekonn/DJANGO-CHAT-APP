@@ -1,3 +1,10 @@
+*.pyc
+__pycache__/
+
+# Ignore other files and directories
+*.log
+*.tmp
+
 enve/
 .vscode/
 db.sqlite3

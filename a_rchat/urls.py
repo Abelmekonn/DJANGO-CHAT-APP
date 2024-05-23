@@ -7,5 +7,5 @@ urlpatterns = [
     path('chat/room/<chatroom_name>',chat_view,name='chatroom'),
     path('chat/new_groupchat/',create_groupchat, name="new-groupchat"),
     path('chat/edit/<chatroom_name>',chatroom_edit_view,name="edit-chatroom"),
-    path('chat/edit/<chatroom_name>', chatroom_delete_view, name="chatroom-delete"),
+    path('chat/delete/<chatroom_name>', chatroom_delete_view, name="chatroom-delete"),
 ]
