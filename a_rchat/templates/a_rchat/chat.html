@@ -6,7 +6,7 @@
     <div class="flex justify-between">
         <h2>{{ chat_group.groupchat_name }}</h2>
         {% if user == chat_group.admin %}
-            <a href="{% url 'edit-chatroom' chatgroup_name %}">Edit</a>
+            <a href="{% url 'edit-chatroom' chatroom_name %}">Edit</a>
         {% endif %}
     </div>
     {% endif %}

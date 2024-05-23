@@ -117,4 +117,4 @@ def chatroom_edit_view(request, chatroom_name):
         'form' : form,
         'chat_group' : chat_group
     }   
-    return render(request, 'a_rtchat/chatroom_edit.html', context) 
+    return render(request, 'a_rchat/chatroom_edit.html', context) 
